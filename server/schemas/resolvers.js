@@ -6,6 +6,7 @@ const { signToken } = require("../utils/auth");
 const { AuthenticationError } = require("apollo-server-express");
 
 // Create the functions that fulfill the queries and mutations defined in `typeDefs.js`
+// The code below used the user-controller.js as a guide.
 const resolvers = {
   Query: {
     me: async (parent, args, context) => {
