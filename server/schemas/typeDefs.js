@@ -22,7 +22,7 @@ const typeDefs = gql`
     link: String
   }
   type Auth {
-    token: ID1
+    token: ID!
     user: User
   }
   input savedBook {
