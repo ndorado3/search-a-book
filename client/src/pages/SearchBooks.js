@@ -8,11 +8,13 @@ import {
   Card,
   CardColumns,
 } from "react-bootstrap";
+// added code
 import { useMutation } from "@apollo/react-hooks";
 
 import Auth from "../utils/auth";
 import { searchGoogleBooks } from "../utils/API";
 import { saveBookIds, getSavedBookIds } from "../utils/localStorage";
+// added code
 import { SAVE_BOOK } from "../utils/mutations";
 
 const SearchBooks = () => {
@@ -24,7 +26,7 @@ const SearchBooks = () => {
   // create state to hold saved bookId values
   const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
 
-  //mutation SAVE_BOOK
+  //added code mutation SAVE_BOOK
   const [saveBook, { error }] = useMutation(SAVE_BOOK);
 
   // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
@@ -50,7 +52,7 @@ const SearchBooks = () => {
 
       const { items } = await response.json();
 
-      const bookData = items.map((book) => ({
+      const dataB = items.map((book) => ({
         bookId: book.id,
         authors: book.volumeInfo.authors || ["No author to display"],
         title: book.volumeInfo.title,
@@ -58,7 +60,7 @@ const SearchBooks = () => {
         image: book.volumeInfo.imageLinks?.thumbnail || "",
       }));
 
-      setSearchedBooks(bookData);
+      setSearchedBooks(dataB);
       setSearchInput("");
     } catch (err) {
       console.error(err);
@@ -76,22 +78,15 @@ const SearchBooks = () => {
     if (!token) {
       return false;
     }
-    // try {
-    //   const response = await saveBook(bookToSave, token);
-
-    //   if (!response.ok) {
-    //     throw new Error('something went wrong!');
-    //   }
-
+    // added code
     try {
       const { data } = await saveBook({
-        variables: { bookData: { ...bookToSave } },
+        variables: { dataB: { ...bookToSave } },
       });
 
       if (error) {
         throw new Error("something went wrong!");
       }
-
       console.log(savedBookIds);
       // if book successfully saves to user's account, save book id to state
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);

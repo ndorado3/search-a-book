@@ -20,19 +20,6 @@ const resolvers = {
     },
   },
   Mutation: {
-    // addUser: async (parent, args) => {
-    //   try {
-    //     console.log(args);
-    //     const user = await User.create(args);
-    //     console.log(user);
-    //     const token = signToken(user);
-
-    //     return { token, user };
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // },
-
     addUser: async (parent, args) => {
       const user = await User.create(args);
       const token = signToken(user);
@@ -52,11 +39,12 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    saveBook: async (parent, { bookData }, context) => {
+    // saveBook= mutation name - savedBooks=mutations.js file
+    saveBook: async (parent, { dataB }, context) => {
       if (context.user) {
         const updatedUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $push: { savedBooks: bookData } },
+          { $push: { savedBooks: dataB } },
           { new: true }
         );
         return updatedUser;
