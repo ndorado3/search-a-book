@@ -7,7 +7,7 @@ import {
   Button,
 } from "react-bootstrap";
 
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/client";
 import { removeBookId } from "../utils/localStorage";
 import { GET_ME } from "../utils/queries";
 import Auth from "../utils/auth";
